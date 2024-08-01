@@ -16,7 +16,7 @@ vec3 finalColor;
 void main()
 {
 	FragColor = max(max(step(1 - outlineWidth, _uvCoords.x) * right, step(_uvCoords.x, outlineWidth) * left),
-				max(step(1 - outlineWidth, _uvCoords.y) * right, step(_uvCoords.y, outlineWidth) * left)) * vec4(outlineColor, 1.0f);
+				max(step(1 - outlineWidth, _uvCoords.y) * top, step(_uvCoords.y, outlineWidth) * bottom)) * vec4(outlineColor, 1.0f);
 	//FragColor = vec4(vec3(_uvCoords.x), 1.0f);
 	//FragColor = vec4(_uvCoords, 0.0f, 1.0f);
 }
