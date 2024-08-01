@@ -27,7 +27,7 @@ namespace MazeGenerator
         bool bottom = true;
 
         //Transformation
-        public Vector3 size = new Vector3(1);
+        public Vector3 size = new Vector3(0.5f);
         public Vector3 position = new Vector3(0);
         public Color outlineColor = Color.Green;
         public Color backgroundColor = Color.Black;
