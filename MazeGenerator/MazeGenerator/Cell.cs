@@ -21,17 +21,17 @@ namespace MazeGenerator
 
 
         //Face Config
-        bool left = true;
-        bool right = true;
-        bool top = true;
-        bool bottom = true;
+        public bool left = true;
+        public bool right = true;
+        public bool top = true;
+        public bool bottom = true;
 
         //Transformation
-        public Vector3 size = new Vector3(0.5f);
-        public Vector3 position = new Vector3(0);
+        public Vector2 size = new Vector2(0.2f);
+        public Vector2 position = new Vector2(0);
         public Color outlineColor = Color.Green;
         public Color backgroundColor = Color.Black;
-        public float outlineWidth = 0.01f;
+        public float outlineWidth = 0.03f;
 
         int VBO = GL.GenBuffer();
         int EBO = GL.GenBuffer();
@@ -40,7 +40,7 @@ namespace MazeGenerator
         Shader cellShader;
         public Cell()
         {
-            cellShader = new Shader(@"C:\Users\Alexm\OneDrive\Desktop\Files\Coding\C#\CONSOLE\MazeGenerator\MazeGenerator\MazeGenerator\Shaders\cellShader.vert", @"C:\Users\Alexm\OneDrive\Desktop\Files\Coding\C#\CONSOLE\MazeGenerator\MazeGenerator\MazeGenerator\Shaders\cellShader.frag");
+            cellShader = new Shader(Extension.GetRootFolderPath() + @"\MazeGenerator\Shaders\cellShader.vert", Extension.GetRootFolderPath() + @"\MazeGenerator\Shaders\cellShader.frag");
             GL.BindVertexArray(VAO);
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
@@ -68,13 +68,15 @@ namespace MazeGenerator
             cellShader.SetUniformFloat("outlineWidth", outlineWidth);
 
             //Matrices
-            cellShader.SetUniformMatrix4("model", Matrix4.CreateTranslation(position) * Matrix4.CreateScale(size));
+            cellShader.SetUniformMatrix4("model", Matrix4.CreateTranslation(new Vector3(position.X, position.Y, 0)) * Matrix4.CreateScale(new Vector3(size.X, size.Y, 0)));
         }
 
-        public void Render()
+        public void Render(Camera2D camera)
         {
             cellShader.RunShader();
+
             SetUniforms();
+            camera.SetCameraUniforms(cellShader);
 
             GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
             //GL.DrawArrays(PrimitiveType.Triangles, 0, 6);

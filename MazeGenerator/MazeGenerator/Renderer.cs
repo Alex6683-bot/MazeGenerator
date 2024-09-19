@@ -8,15 +8,20 @@ namespace MazeGenerator
 {
     class Renderer
     {
-        Cell cell;
+        Maze maze;
+        Camera2D camera;
         public void Load()
         {
-            cell = new Cell();
+            maze = new Maze();
+            camera = new Camera2D();
+    
+            maze.GenerateCells();
         }
 
         public void Render()
         {
-            cell.Render();
+            maze.RenderMaze(camera);
+            camera.UpdateCamera();
         }
     }
 }

@@ -23,6 +23,7 @@ namespace MazeGenerator.MazeGenerator
         {
             base.OnLoad();
             GL.ClearColor(0.5f, 0.05f, 0.05f, 1.0f);
+            Input.ConfigureInput(MouseState, KeyboardState);
             renderer.Load();
         }
         protected override void OnRenderFrame(FrameEventArgs args)
